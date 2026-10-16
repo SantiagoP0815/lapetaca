@@ -1,0 +1,24 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  accent: string;
+  description: string;
+  note?: string;
+  short?: boolean;
+}
+
+const { eyebrow, title, accent, description, note, short = false } = Astro.props;
+---
+
+<section class:list={['page-hero', { 'page-hero-short': short }]} aria-labelledby="page-hero-title">
+  <div class="page-hero-symbol" transition:name="brand-symbol" aria-hidden="true">
+    <img class="hero-symbol-watermark" src="/assets/branding/symbol-light.svg" alt="" />
+  </div>
+  <div class="container page-hero-content" transition:name="brand-copy">
+    <p class="eyebrow eyebrow-light">{eyebrow}</p>
+    <h1 id="page-hero-title">{title}<br /><em>{accent}</em></h1>
+    <p>{description}</p>
+    {note && <p class="provisional-note provisional-note-light">{note}</p>}
+  </div>
+</section>

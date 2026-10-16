@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#183f35"/>
+  <circle cx="1280" cy="160" r="330" fill="#bc684a" opacity=".55"/>
+  <circle cx="280" cy="850" r="500" fill="#275648" opacity=".8"/>
+  <text x="800" y="420" fill="#f4f0e7" font-family="Georgia, serif" font-size="88" text-anchor="middle">La Petaca</text>
+  <text x="800" y="500" fill="#dca88e" font-family="Arial, sans-serif" font-size="28" letter-spacing="8" text-anchor="middle">VIDEO DE BIENVENIDA</text>
+  <text x="800" y="555" fill="#f4f0e7" opacity=".7" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">Contenido oficial próximamente</text>
+</svg>

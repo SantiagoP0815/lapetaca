@@ -1,0 +1,63 @@
+---
+import type { MenuItem } from '../data/menu';
+
+interface Props { items: MenuItem[]; }
+const { items } = Astro.props;
+const serializedItems = JSON.stringify(items);
+---
+
+<section class="menu-explorer" aria-label="Explorador del menú">
+  <div class="menu-list" role="tablist" aria-label="Platos del menú">
+    {items.map((item, index) => (
+      <button class:list={["menu-item-button", { "is-selected": index === 0 }]} type="button" role="tab" aria-selected={index === 0} aria-controls={`dish-detail-${item.id}`} data-menu-id={item.id}>
+        <span class="menu-item-index">{String(index + 1).padStart(2, '0')}</span>
+        <span class="menu-item-copy"><small>{item.category}</small><strong>{item.name}</strong></span>
+        <span class="menu-item-arrow" aria-hidden="true">↗</span>
+      </button>
+    ))}
+  </div>
+
+  <article class="dish-detail" id={`dish-detail-${items[0].id}`} role="tabpanel" aria-live="polite">
+    <div class:list={["dish-art", items[0].accent]} data-dish-art><span data-dish-art-label>Fotografía oficial<br />próximamente</span></div>
+    <div class="dish-detail-copy">
+      <p class="eyebrow" data-dish-category>{items[0].category}</p>
+      <h2 data-dish-name>{items[0].name}</h2>
+      <p class="dish-description" data-dish-description>{items[0].description}</p>
+      <p class="dish-price" data-dish-price>{items[0].price}</p>
+      <p class="provisional-note">Contenido provisional · Confirmar con el cliente</p>
+    </div>
+  </article>
+</section>
+
+<script define:vars={{ serializedItems }}>
+  const menuItems = JSON.parse(serializedItems);
+  const buttons = document.querySelectorAll('[data-menu-id]');
+  const detail = document.querySelector('.dish-detail');
+  const art = document.querySelector('[data-dish-art]');
+  const artLabel = document.querySelector('[data-dish-art-label]');
+  const category = document.querySelector('[data-dish-category]');
+  const name = document.querySelector('[data-dish-name]');
+  const description = document.querySelector('[data-dish-description]');
+  const price = document.querySelector('[data-dish-price]');
+
+  const renderDish = (id) => {
+    const item = menuItems.find((menuItem) => menuItem.id === id);
+    if (!item || !detail || !art || !artLabel || !category || !name || !description || !price) return;
+    buttons.forEach((button) => {
+      const selected = button.dataset.menuId === id;
+      button.classList.toggle('is-selected', selected);
+      button.setAttribute('aria-selected', String(selected));
+    });
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      detail.animate([{ opacity: 0.55, transform: 'translateY(0.5rem)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 350, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+    }
+    art.className = `dish-art ${item.accent}`;
+    category.textContent = item.category;
+    name.textContent = item.name;
+    description.textContent = item.description;
+    price.textContent = item.price;
+    artLabel.textContent = item.image ? '' : 'Fotografía oficial próximamente';
+  };
+
+  buttons.forEach((button) => button.addEventListener('click', () => renderDish(button.dataset.menuId)));
+</script>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WelcomeVideo from '../components/WelcomeVideo.astro';
+import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
+---
+
+<BaseLayout title={`${BUSINESS.name} | ${BUSINESS.city}, ${BUSINESS.department}`} description="Conoce La Petaca Club Campestre en Páramo, Santander. Información, gastronomía, espacios y formas de contacto.">
+  <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <div class="hero-texture" data-parallax="0.12" aria-hidden="true"></div>
+    <div class="hero-symbol-motion" transition:name="brand-symbol" data-parallax="0.06" aria-hidden="true"><img class="hero-symbol-watermark" src="/assets/branding/symbol-light.svg" alt="" /></div>
+    <div class="container hero-content" transition:name="brand-copy">
+      <p class="eyebrow eyebrow-light">{locationLabel}</p>
+      <h1 id="hero-title">La Petaca<br /><em>Club Campestre</em></h1>
+      <p class="hero-lead">Un lugar para conocer, disfrutar y volver.</p>
+      <p class="provisional-note provisional-note-light">Texto de presentación provisional</p>
+      <div class="hero-actions"><a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Contáctanos <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <div class="hero-stamp" data-parallax="-0.18" aria-hidden="true"><span>Desde</span><strong>La tierra</strong><span>de Santander</span></div>
+  </section>
+
+  <section class="section welcome-section" aria-labelledby="welcome-title">
+    <div class="container welcome-grid">
+      <div data-reveal style="--reveal-delay: 120ms"><WelcomeVideo /></div>
+      <div class="section-heading" data-reveal><p class="eyebrow">Una primera mirada</p><h2 id="welcome-title">La Petaca<br /><em>en movimiento.</em></h2><p class="section-intro section-intro-left">El video oficial de bienvenida se incorporará aquí para presentar el lugar desde una mirada auténtica.</p><p class="provisional-note">Video pendiente de entrega por parte del cliente</p></div>
+    </div>
+  </section>
+
+  <section class="section experience-section" id="experiencia" aria-labelledby="experience-title">
+    <div class="container"><div class="section-heading centered-heading" data-reveal><p class="eyebrow">La experiencia</p><h2 id="experience-title">Un espacio para<br /><em>vivir el momento.</em></h2><p class="section-intro">Conoce próximamente los espacios, servicios y actividades disponibles en La Petaca.</p></div>
+      <div class="card-grid experience-grid">
+        {[['01', 'El lugar', 'Conoce la identidad y los espacios de La Petaca.', 'art-nature'], ['02', 'La mesa', 'Descubre nuestra propuesta gastronómica.', 'art-table'], ['03', 'Los encuentros', 'Próximamente: eventos y experiencias confirmadas.', 'art-gathering']].map(([number, title, text, art], index) => (
+          <div class="feature-card-hitbox" data-reveal style={`--reveal-delay: ${(index + 1) * 80}ms`}><article class:list={['feature-card', { 'feature-card-large': index === 0 }]}><div class:list={['card-art', art]} aria-hidden="true"><span>Fotografía oficial<br />próximamente</span></div><div class="feature-card-content"><span class="card-number">{number}</span><h3>{title}</h3><p>{text}</p><span class="provisional-tag">Información por confirmar</span></div></article></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section food-section" id="gastronomia" aria-labelledby="food-title">
+    <div class="container food-grid"><div class="food-copy" data-reveal><p class="eyebrow">De nuestra mesa</p><h2 id="food-title">Gastronomía<br /><em>con identidad.</em></h2><p class="lead-copy">Explora la carta de La Petaca y conoce próximamente sus platos, categorías, descripciones y precios.</p><a class="button button-light" href="/menu/">Explorar menú <span aria-hidden="true">↗</span></a></div><div class="menu-preview" data-reveal style="--reveal-delay: 120ms" aria-label="Vista previa provisional del menú"><div class="menu-preview-top"><span>La Petaca</span><span>Menú</span></div><div class="menu-preview-center"><span class="menu-icon" aria-hidden="true">✦</span><p>Carta<br /><em>próximamente</em></p><small>Fotografías y contenidos oficiales por confirmar</small></div><div class="menu-preview-bottom"><span>01</span><span>Comer · Compartir · Disfrutar</span></div></div></div>
+  </section>
+
+  <section class="section gallery-section" id="galeria" aria-labelledby="gallery-title">
+    <div class="container"><div class="gallery-heading"><div class="section-heading" data-reveal><p class="eyebrow">Una mirada al lugar</p><h2 id="gallery-title">Galería <em>La Petaca.</em></h2></div><p class="section-intro" data-reveal style="--reveal-delay: 100ms">Reemplazaremos estos espacios por fotografías oficiales del establecimiento.</p></div><div class="gallery-grid">{[1, 2, 3, 4].map((item, index) => <div class:list={['gallery-item', { 'gallery-wide': index === 0, 'gallery-tall': index === 3 }]} data-reveal style={`--reveal-delay: ${(index + 1) * 60}ms`}><div class:list={['gallery-placeholder', `placeholder-${item}`]}><span>Imagen oficial<br />próximamente</span></div></div>)}</div></div>
+  </section>
+</BaseLayout>

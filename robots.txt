@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# TODO: agregar la URL del sitemap cuando el dominio sea confirmado.

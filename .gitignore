@@ -1,0 +1,11 @@
+# Dependencias
+node_modules/
+
+# Build de Astro
+dist/
+
+# Caché y artefactos de Astro
+.astro/
+
+# Sistema
+.DS_Store

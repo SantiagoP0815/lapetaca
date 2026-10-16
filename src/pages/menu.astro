@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MenuExplorer from '../components/MenuExplorer.astro';
+import PageHero from '../components/PageHero.astro';
+import { BUSINESS, locationLabel } from '../data/business';
+import { MENU_ITEMS } from '../data/menu';
+---
+
+<BaseLayout title={`Menú | ${BUSINESS.name}`} description={`Explora próximamente la propuesta gastronómica de ${BUSINESS.name} en ${locationLabel}.`}>
+  <PageHero eyebrow="De nuestra mesa" title="El menú" accent="La Petaca." description="Una carta para descubrir cuando los contenidos oficiales estén confirmados." note="Menú provisional · Platos, precios y fotografías por confirmar" />
+  <section class="section menu-section" aria-labelledby="menu-explorer-title"><div class="container"><div class="section-heading centered-heading" data-reveal><p class="eyebrow">Explora la carta</p><h2 id="menu-explorer-title">Elige una<br /><em>propuesta.</em></h2><p class="section-intro">Haz clic en cada opción para ver su detalle. Estos son espacios de contenido hasta recibir el menú definitivo.</p></div><MenuExplorer items={MENU_ITEMS} /></div></section>
+</BaseLayout>
