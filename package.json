@@ -1,15 +1,13 @@
 {
   "name": "lapetaca",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Sitio web oficial de La Petaca Club Campestre — Páramo, Santander, Colombia",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"
   },
-  "keywords": [],
-  "type": "module",
   "dependencies": {
     "astro": "^7.3.5"
   }
