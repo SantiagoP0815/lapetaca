@@ -338,7 +338,7 @@ h1 em, h2 em { color: var(--color-terracotta-soft); font-style: italic; }
 .contact-detail strong a { transition: color 160ms ease; }
 .contact-detail strong a:hover { color: var(--color-cream); }
 .detail-muted { color: rgba(255, 255, 255, 0.68); font-size: 0.72rem; font-style: italic; }
-.contact-details .button { width: fit-content; margin-top: 0.5rem; }
+.contact-details .button { grid-column: 1 / -1; justify-self: start; margin-top: 0.5rem; }
 
 /* ---------- 12. Footer ---------- */
 .site-footer { padding-block: 2.5rem 1.25rem; background: var(--color-forest-deep); color: rgba(255, 255, 255, 0.75); }
