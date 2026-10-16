@@ -2,9 +2,44 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import { BUSINESS, locationLabel } from '../data/business';
+
+// TODO(cliente): reemplazar por fotografías oficiales del establecimiento.
+const galleryPlaceholders = [1, 2, 3, 4, 1, 2];
 ---
 
-<BaseLayout title={`Galería | ${BUSINESS.name}`} description={`Galería visual de ${BUSINESS.name} en ${locationLabel}. Fotografías oficiales próximamente.`}>
-  <PageHero eyebrow="Una mirada al lugar" title="Galería" accent="La Petaca." description="Imágenes reales del establecimiento próximamente." short />
-  <section class="section gallery-section" aria-labelledby="gallery-grid-title"><div class="container"><div class="section-heading centered-heading" data-reveal><p class="eyebrow">Contenido visual</p><h2 id="gallery-grid-title">Un lugar por<br /><em>descubrir.</em></h2><p class="section-intro">No utilizaremos fotografías de stock como contenido definitivo.</p></div><div class="gallery-grid gallery-grid-page">{[1, 2, 3, 4, 1, 2].map((item, index) => <div class:list={['gallery-item', { 'gallery-wide': index === 0, 'gallery-tall': index === 3 }]} data-reveal style={`--reveal-delay: ${(index + 1) * 60}ms`}><div class:list={['gallery-placeholder', `placeholder-${item}`]}><span>Fotografía oficial<br />próximamente</span></div></div>)}</div></div></section>
+<BaseLayout
+  title={`Galería | ${BUSINESS.name}`}
+  description={`Galería visual de ${BUSINESS.name} en ${locationLabel}. Fotografías oficiales próximamente.`}
+>
+  <PageHero
+    eyebrow="Una mirada al lugar"
+    title="Galería"
+    accent="La Petaca."
+    description="Imágenes reales del establecimiento próximamente."
+    short
+  />
+
+  <section class="section gallery-section" aria-labelledby="gallery-grid-title">
+    <div class="container">
+      <div class="section-heading centered-heading" data-reveal>
+        <p class="eyebrow">Contenido visual</p>
+        <h2 id="gallery-grid-title">Un lugar por<br /><em>descubrir.</em></h2>
+        <p class="section-intro">No utilizaremos fotografías de stock como contenido definitivo.</p>
+      </div>
+
+      <div class="gallery-grid gallery-grid-page">
+        {galleryPlaceholders.map((item, index) => (
+          <div
+            class:list={['gallery-item', { 'gallery-wide': index === 0, 'gallery-tall': index === 3 }]}
+            data-reveal
+            style={`--reveal-delay: ${(index + 1) * 60}ms`}
+          >
+            <div class:list={['gallery-placeholder', `placeholder-${item}`]}>
+              <span>Fotografía oficial<br />próximamente</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>

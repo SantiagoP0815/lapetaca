@@ -4,7 +4,50 @@ import PageHero from '../components/PageHero.astro';
 import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
 ---
 
-<BaseLayout title={`Contacto | ${BUSINESS.name}`} description={`Contacta a ${BUSINESS.name} en ${locationLabel}. Teléfono y WhatsApp disponibles.`}>
-  <PageHero eyebrow="Estamos para escucharte" title="Planifiquemos" accent="tu visita." description="Encuentra aquí los canales oficiales de La Petaca." short />
-  <section class="contact-section contact-page-section" aria-labelledby="contact-details-title"><div class="container contact-grid"><div class="contact-copy" data-reveal><p class="eyebrow eyebrow-light">La Petaca Club Campestre</p><h2 id="contact-details-title">Hablemos<br /><em>directamente.</em></h2><p>Estamos ubicados en {locationLabel}. La dirección exacta, horarios y redes sociales serán completados cuando sean confirmados.</p><p class="provisional-note provisional-note-light">Algunos datos aún están pendientes de confirmación</p></div><div class="contact-details" data-reveal style="--reveal-delay: 120ms"><div class="contact-detail"><span class="detail-label">Ubicación</span><strong>{BUSINESS.city}, {BUSINESS.department}<br />{BUSINESS.country}</strong><span class="detail-muted">Dirección exacta por confirmar</span></div><div class="contact-detail"><span class="detail-label">Teléfono</span><strong><a href={`tel:+${BUSINESS.countryCode}${BUSINESS.phone}`}>{BUSINESS.phoneDisplay}</a></strong><span class="detail-muted">También disponible por WhatsApp</span></div><div class="contact-detail"><span class="detail-label">Redes sociales</span><strong>Instagram · Facebook</strong><span class="detail-muted">Enlaces oficiales por confirmar</span></div><a class="button button-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Escribir por WhatsApp <span aria-hidden="true">↗</span></a></div></div></section>
+<BaseLayout
+  title={`Contacto | ${BUSINESS.name}`}
+  description={`Contacta a ${BUSINESS.name} en ${locationLabel}. Teléfono y WhatsApp disponibles.`}
+>
+  <PageHero
+    eyebrow="Estamos para escucharte"
+    title="Planifiquemos"
+    accent="tu visita."
+    description="Encuentra aquí los canales oficiales de La Petaca."
+    short
+  />
+
+  <section class="contact-section contact-page-section" aria-labelledby="contact-details-title">
+    <div class="container contact-grid">
+      <div class="contact-copy" data-reveal>
+        <p class="eyebrow eyebrow-light">La Petaca Club Campestre</p>
+        <h2 id="contact-details-title">Hablemos<br /><em>directamente.</em></h2>
+        <p>
+          Estamos ubicados en {locationLabel}. La dirección exacta, horarios y redes sociales
+          serán completados cuando sean confirmados.
+        </p>
+        <p class="provisional-note provisional-note-light">Algunos datos aún están pendientes de confirmación</p>
+      </div>
+
+      <div class="contact-details" data-reveal style="--reveal-delay: 120ms">
+        <div class="contact-detail">
+          <span class="detail-label">Ubicación</span>
+          <strong>{BUSINESS.city}, {BUSINESS.department}<br />{BUSINESS.country}</strong>
+          <span class="detail-muted">Dirección exacta por confirmar</span>
+        </div>
+        <div class="contact-detail">
+          <span class="detail-label">Teléfono</span>
+          <strong><a href={`tel:+${BUSINESS.countryCode}${BUSINESS.phone}`}>{BUSINESS.phoneDisplay}</a></strong>
+          <span class="detail-muted">También disponible por WhatsApp</span>
+        </div>
+        <div class="contact-detail">
+          <span class="detail-label">Redes sociales</span>
+          <strong>Instagram · Facebook</strong>
+          <span class="detail-muted">Enlaces oficiales por confirmar</span>
+        </div>
+        <a class="button button-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          Escribir por WhatsApp <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
