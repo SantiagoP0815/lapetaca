@@ -8,11 +8,9 @@ interface Props {
   description: string;
   note?: string;
   short?: boolean;
-  // Sustituye el texto del acento por el logo oficial (para no escribir "La Petaca")
-  accentLogo?: boolean;
 }
 
-const { eyebrow, title, accent, description, note, short = false, accentLogo = false } = Astro.props;
+const { eyebrow, title, accent, description, note, short = false } = Astro.props;
 ---
 
 <section class:list={['page-hero', { 'page-hero-short': short }]} aria-labelledby="page-hero-title">
@@ -21,8 +19,7 @@ const { eyebrow, title, accent, description, note, short = false, accentLogo = f
   </div>
   <div class="container page-hero-content">
     <p class="eyebrow eyebrow-light">{eyebrow}</p>
-    <h1 id="page-hero-title">{title}{!accentLogo && <span class="accent">{accent}</span>}</h1>
-    {accentLogo && <img class="page-hero-logo" src={withBase('/assets/branding/logo-light.svg')} alt="La Petaca" />}
+    <h1 id="page-hero-title">{title}<span class="accent">{accent}</span></h1>
     <p class="page-hero-sub">{description}</p>
     {note && <p class="provisional-note provisional-note-light">{note}</p>}
   </div>
