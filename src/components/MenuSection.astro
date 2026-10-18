@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import QrCode from './QrCode.astro';
+import { withBase } from '../lib/paths';
 import { whatsappUrl } from '../data/business';
 import { MENU_DAY, MENU_NIGHT, MENU_DAY_NOTE, formatPrice } from '../data/menu';
 import type { MenuDish } from '../data/menu';
@@ -39,6 +40,7 @@ const panels: { id: string; title: string; dishes: MenuDish[]; note: string | nu
         </button>
       ))}
     </div>
+    <img class="chooser-logo" src={withBase('/assets/branding/logo-stacked-light.svg')} alt="" aria-hidden="true" />
   </div>
 </section>
 
@@ -113,7 +115,7 @@ const panels: { id: string; title: string; dishes: MenuDish[]; note: string | nu
     </div>
 
     <aside class="qr-sidebar" aria-label="Código QR del menú">
-      <p class="eyebrow">Carta en tu celular</p>
+      <img class="qr-sidebar-logo" src={withBase('/assets/branding/logo-stacked-primary.svg')} alt="La Petaca" />
       <QrCode size={420} />
       <p class="qr-caption">
         Escanea este código y elige entre el menú del día y el menú noche.
