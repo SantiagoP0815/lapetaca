@@ -46,12 +46,14 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
   <!-- Hero: lienzo negro-oliva, display limón y fotografía editorial -->
   <section class="hero" id="inicio" aria-labelledby="hero-title">
     <div class="hero-watermark" aria-hidden="true">
-      <img src={withBase('/assets/branding/symbol-light.svg')} alt="" />
+      <img src={withBase('/assets/branding/logo-emblem-white.svg')} alt="" />
     </div>
     <div class="container hero-grid">
       <div class="hero-content" data-reveal>
         <p class="eyebrow eyebrow-light">{locationLabel}</p>
-        <h1 id="hero-title">La Petaca<span class="accent">Club Campestre</span></h1>
+        <h1 class="sr-only" id="hero-title">{BUSINESS.name}</h1>
+        <img class="hero-logo" src={withBase('/assets/branding/logo-horizontal-white.svg')} alt="La Petaca" />
+        <p class="hero-accent">Club Campestre</p>
         <p class="hero-lead">Un lugar para conocer, disfrutar y volver.</p>
         <p class="provisional-note provisional-note-light">Texto de presentación provisional</p>
         <div class="action-row">
@@ -77,7 +79,8 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
       </div>
       <div class="section-heading" data-reveal style="--reveal-delay: 100ms">
         <p class="eyebrow">Una primera mirada</p>
-        <h2 id="welcome-title">La Petaca<br />en movimiento</h2>
+        <h2 id="welcome-title">En movimiento</h2>
+        <img class="gallery-logo" src={withBase('/assets/branding/logoarriba+lapetaca.svg')} alt="La Petaca" />
         <p class="section-intro section-intro-left">
           El video oficial de bienvenida se incorporará aquí para presentar el lugar desde una mirada auténtica.
         </p>
@@ -135,8 +138,7 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
       <div class="menu-card" data-reveal style="--reveal-delay: 120ms">
         <p class="menu-card-header">
           <span class="menu-card-brand">
-            <img class="menu-card-symbol" src={withBase('/assets/branding/symbol-primary.svg')} alt="" aria-hidden="true" />
-            La Petaca
+            <img class="menu-card-logo" src={withBase('/assets/branding/logo-horizontal-green.svg')} alt="La Petaca" />
           </span>
           <span>Menú del día</span>
         </p>
@@ -166,7 +168,8 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
       <div class="gallery-heading">
         <div class="section-heading" data-reveal>
           <p class="eyebrow">Una mirada al lugar</p>
-          <h2 id="gallery-title">Galería La Petaca</h2>
+          <h2 id="gallery-title">Galería</h2>
+          <img class="gallery-logo" src={withBase('/assets/branding/logoarriba+lapetaca.svg')} alt="La Petaca" />
         </div>
         <p class="section-intro" data-reveal style="--reveal-delay: 100ms">
           Reemplazaremos estos espacios por fotografías oficiales del establecimiento.
