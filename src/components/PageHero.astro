@@ -12,13 +12,13 @@ const { eyebrow, title, accent, description, note, short = false } = Astro.props
 ---
 
 <section class:list={['page-hero', { 'page-hero-short': short }]} aria-labelledby="page-hero-title">
-  <div class="page-hero-symbol" transition:name="brand-symbol" aria-hidden="true">
-    <img class="hero-symbol-watermark" src="/assets/branding/symbol-light.svg" alt="" />
+  <div class="page-hero-watermark" aria-hidden="true">
+    <img src={`${import.meta.env.BASE_URL}/assets/branding/symbol-light.svg`} alt="" />
   </div>
-  <div class="container page-hero-content" transition:name="brand-copy">
+  <div class="container page-hero-content">
     <p class="eyebrow eyebrow-light">{eyebrow}</p>
-    <h1 id="page-hero-title">{title}<br /><em>{accent}</em></h1>
-    <p>{description}</p>
+    <h1 id="page-hero-title">{title}<span class="accent">{accent}</span></h1>
+    <p class="page-hero-sub">{description}</p>
     {note && <p class="provisional-note provisional-note-light">{note}</p>}
   </div>
 </section>

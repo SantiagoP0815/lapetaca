@@ -1,0 +1,238 @@
+---
+import Icon from './Icon.astro';
+import QrCode from './QrCode.astro';
+import { whatsappUrl } from '../data/business';
+import { MENU_DAY, MENU_NIGHT, MENU_DAY_NOTE, formatPrice } from '../data/menu';
+import type { MenuDish } from '../data/menu';
+
+const tabs = [
+  { id: 'dia', label: 'Menú del día', icon: 'sun' as const },
+  { id: 'noche', label: 'Menú noche', icon: 'moon' as const }
+];
+
+const panels: { id: string; title: string; dishes: MenuDish[]; note: string | null }[] = [
+  { id: 'dia', title: 'Menú del día', dishes: MENU_DAY, note: MENU_DAY_NOTE },
+  { id: 'noche', title: 'Menú noche', dishes: MENU_NIGHT, note: null }
+];
+---
+
+<!-- Selector: la carta permanece oculta hasta que el usuario elige.
+     Al elegir, junto al título del menú aparece el astro correspondiente:
+     un sol (día) o una luna (noche) con una animación de entrada propia. -->
+<section class="menu-chooser" aria-label="Elige tu menú">
+  <div class="container chooser-row">
+    <p class="eyebrow eyebrow-light">Elige tu menú</p>
+    <div class="menu-tabs" role="tablist" aria-label="Menú del día o menú noche">
+      {tabs.map((tab, index) => (
+        <button
+          class="menu-tab"
+          type="button"
+          role="tab"
+          id={`tab-${tab.id}`}
+          aria-selected="false"
+          aria-controls={`panel-${tab.id}`}
+          tabindex={index === 0 ? 0 : -1}
+          data-menu-tab={tab.id}
+        >
+          <Icon name={tab.icon} size={18} class="tab-icon" />
+          {tab.label}
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="section section--cream menu-section" aria-label="Carta de La Petaca">
+  <div class="container menu-page-grid">
+    <div class="menu-dishes">
+      <p class="menu-hint" data-menu-hint>
+        Selecciona el menú del día o el de la noche para ver la carta.
+      </p>
+
+      {panels.map((panel) => (
+        <div role="tabpanel" id={`panel-${panel.id}`} aria-labelledby={`tab-${panel.id}`} data-menu-panel={panel.id} hidden>
+          <div class="menu-panel-head">
+            <h2>{panel.title}</h2>
+            <span class:list={['menu-orb', { 'menu-orb--moon': panel.id === 'noche' }]} aria-hidden="true">
+              <Icon name={panel.id === 'dia' ? 'sun' : 'moon'} size={panel.id === 'dia' ? 38 : 34} />
+            </span>
+          </div>
+
+          <ul class="menu-dish-list">
+            {panel.dishes.map((dish, index) => {
+              const detailId = `dish-${panel.id}-${index}`;
+              return (
+                <li class="menu-entry">
+                  <button
+                    class="menu-row menu-dish-toggle"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls={detailId}
+                    data-dish-toggle
+                  >
+                    <span class="menu-name">{dish.name}</span>
+                    <span class="menu-dots" aria-hidden="true"></span>
+                    <span class="menu-price">{formatPrice(dish.price)}</span>
+                    <Icon name="chevron-down" size={14} class="dish-caret" />
+                  </button>
+
+                  <div class="dish-expand" id={detailId} hidden>
+                    <div class="dish-expand-copy">
+                      <p class="dish-expand-desc">
+                        {dish.description ?? 'La descripción de este plato se publicará cuando sea confirmada por el cliente.'}
+                      </p>
+                      {(!dish.description || !dish.image) && (
+                        <p class="provisional-note">Contenido por confirmar con el cliente</p>
+                      )}
+                    </div>
+                    <div class="dish-expand-art">
+                      {dish.image ? (
+                        <img class="dish-expand-img" src={dish.image} alt={dish.imageAlt ?? dish.name} loading="lazy" />
+                      ) : (
+                        <>
+                          <span class="symbol-mark dish-expand-mark"></span>
+                          <span class="dish-expand-art-label">Fotografía oficial<br />próximamente</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+
+          {panel.note && <p class="menu-list-note">* {panel.note}</p>}
+        </div>
+      ))}
+
+      <div class="menu-actions">
+        <a class="text-link" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          Pedir por WhatsApp <Icon name="arrow-right" />
+        </a>
+      </div>
+    </div>
+
+    <aside class="qr-sidebar" aria-label="Código QR del menú">
+      <p class="eyebrow">Carta en tu celular</p>
+      <QrCode size={420} />
+      <p class="qr-caption">
+        Escanea este código y elige entre el menú del día y el menú noche.
+      </p>
+    </aside>
+  </div>
+</section>
+
+<script data-astro-rerun>
+  // data-astro-rerun: Astro re-ejecuta este script tras cada navegación del
+  // ClientRouter (nota: los scripts con este atributo se sirven SIN compilar,
+  // por eso está escrito en JavaScript puro, sin anotaciones de TypeScript).
+  // Los listeners se registran una sola vez por documento (delegación sobre
+  // document + bandera), de modo que el selector funciona tanto en carga
+  // directa como en navegaciones SPA, sin duplicados.
+
+  const closeAllDishDetails = () => {
+    document.querySelectorAll('[data-dish-toggle][aria-expanded="true"]').forEach((toggle) => {
+      toggle.setAttribute('aria-expanded', 'false');
+      const panel = document.getElementById(toggle.getAttribute('aria-controls') || '');
+      if (panel) panel.hidden = true;
+    });
+  };
+
+  const selectMenu = (id, moveFocus = false) => {
+    const tabs = Array.from(document.querySelectorAll('[data-menu-tab]'));
+    const panels = Array.from(document.querySelectorAll('[data-menu-panel]'));
+    const hint = document.querySelector('[data-menu-hint]');
+
+    tabs.forEach((tab) => {
+      const selected = tab.dataset.menuTab === id;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      if (selected && moveFocus) tab.focus();
+    });
+    panels.forEach((panel) => {
+      panel.hidden = panel.dataset.menuPanel !== id;
+    });
+    if (hint) hint.hidden = true;
+    closeAllDishDetails();
+
+    // Mantiene la elección en la URL (?menu=noche) para poder compartirla.
+    const url = new URL(location.href);
+    if (id === 'dia') url.searchParams.delete('menu');
+    else url.searchParams.set('menu', id);
+    history.replaceState(null, '', url);
+  };
+
+  if (!document.documentElement.dataset.menuBound) {
+    document.documentElement.dataset.menuBound = 'true';
+
+    document.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) return;
+
+      const tab = event.target.closest('[data-menu-tab]');
+      if (tab) {
+        selectMenu(tab.dataset.menuTab || 'dia');
+        return;
+      }
+
+      // Detalle de plato: se abre uno a la vez dentro de la carta.
+      const toggle = event.target.closest('[data-dish-toggle]');
+      if (!toggle) return;
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+
+      document.querySelectorAll('[data-dish-toggle][aria-expanded="true"]').forEach((other) => {
+        if (other === toggle) return;
+        other.setAttribute('aria-expanded', 'false');
+        const panel = document.getElementById(other.getAttribute('aria-controls') || '');
+        if (panel) panel.hidden = true;
+      });
+
+      toggle.setAttribute('aria-expanded', String(!isOpen));
+      const panel = document.getElementById(toggle.getAttribute('aria-controls') || '');
+      if (panel) panel.hidden = isOpen;
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!(event.target instanceof Element)) return;
+      const focusedTab = event.target.closest('[data-menu-tab]');
+      if (!focusedTab) return;
+
+      const tabs = Array.from(document.querySelectorAll('[data-menu-tab]'));
+      const currentIndex = tabs.indexOf(focusedTab);
+      if (currentIndex === -1) return;
+
+      let nextIndex;
+      switch (event.key) {
+        case 'ArrowRight':
+          nextIndex = (currentIndex + 1) % tabs.length;
+          break;
+        case 'ArrowLeft':
+          nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+          break;
+        case 'Home':
+          nextIndex = 0;
+          break;
+        case 'End':
+          nextIndex = tabs.length - 1;
+          break;
+        default:
+          return;
+      }
+
+      event.preventDefault();
+      selectMenu(tabs[nextIndex].dataset.menuTab || 'dia', true);
+    });
+
+    // Preselección por URL (?menu=dia|noche): útil para QR por menú.
+    // Se difiere hasta astro:page-load + un frame de render, porque revelar
+    // el panel durante el parseo (recarga directa) lo pinta antes de que
+    // los estilos estén aplicados: el astro aparecería debajo del título y
+    // sin su placa de fondo. Con el diferido, la carta aparece ya estilada
+    // y con su animación de entrada.
+    document.addEventListener('astro:page-load', () => {
+      requestAnimationFrame(() => {
+        const initial = new URL(location.href).searchParams.get('menu');
+        if (initial === 'dia' || initial === 'noche') selectMenu(initial);
+      });
+    });
+  }
+</script>

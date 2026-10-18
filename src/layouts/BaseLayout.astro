@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
@@ -18,13 +19,19 @@ const { title, description } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#183f35" />
+    <meta name="theme-color" content="#1d0b0d" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_CO" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <!-- TODO(cliente): agregar canonical, og:url y og:image cuando el dominio esté confirmado. -->
-    <link rel="icon" href="/assets/branding/symbol-primary.svg" type="image/svg+xml" />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}/assets/branding/symbol-primary.svg`} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <ClientRouter />
     <title>{title}</title>
   </head>
@@ -34,8 +41,12 @@ const { title, description } = Astro.props;
     <main id="contenido"><slot /></main>
     <Footer />
 
+    <button class="back-to-top" type="button" data-back-to-top aria-label="Volver arriba">
+      <Icon name="chevron-up" size={16} />
+    </button>
+
     <script>
-      // Marca que JS está disponible: activa los estados iniciales de las animaciones de reveal.
+      // Marca que JS está disponible: activa los estados iniciales de las animaciones.
       document.documentElement.classList.add('js');
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -66,25 +77,21 @@ const { title, description } = Astro.props;
       };
       window.addEventListener('scroll', updateHeader, { passive: true });
 
-      // Parallax sutil del hero de la portada.
-      const updateParallax = () => {
-        const hero = document.querySelector('.hero');
-        if (reduceMotion.matches || !hero || window.scrollY > hero.clientHeight) return;
-        document.querySelectorAll('[data-parallax]').forEach((item) => {
-          if (!(item instanceof HTMLElement)) return;
-          const speed = Number(item.dataset.parallax) || 0;
-          item.style.setProperty('--parallax-y', `${window.scrollY * speed}px`);
-        });
+      // Botón circular "volver arriba".
+      // Se consulta fresco en cada uso (delegación): con ClientRouter el
+      // documento se reemplaza al navegar y las referencias capturadas
+      // quedarían obsoletas.
+      const updateBackToTop = () => {
+        document
+          .querySelector('[data-back-to-top]')
+          ?.classList.toggle('is-visible', window.scrollY > 600);
       };
-      let parallaxScheduled = false;
-      window.addEventListener('scroll', () => {
-        if (parallaxScheduled) return;
-        parallaxScheduled = true;
-        window.requestAnimationFrame(() => {
-          parallaxScheduled = false;
-          updateParallax();
-        });
-      }, { passive: true });
+      window.addEventListener('scroll', updateBackToTop, { passive: true });
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof Element)) return;
+        if (!event.target.closest('[data-back-to-top]')) return;
+        window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      });
 
       // Animaciones de aparición: se reinician en cada página sin acumular observers.
       let revealObserver;
@@ -109,7 +116,7 @@ const { title, description } = Astro.props;
       // un único punto de entrada evita bindings duplicados.
       document.addEventListener('astro:page-load', () => {
         updateHeader();
-        updateParallax();
+        updateBackToTop();
         setupReveal();
       });
     </script>

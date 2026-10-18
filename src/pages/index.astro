@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import WelcomeVideo from '../components/WelcomeVideo.astro';
+import Icon from '../components/Icon.astro';
+import QrCode from '../components/QrCode.astro';
 import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
+import { MENU_DAY, formatPrice } from '../data/menu';
 
 // TODO(cliente): reemplazar textos y tarjetas con contenido oficial confirmado.
 const experienceCards = [
@@ -9,61 +12,71 @@ const experienceCards = [
     number: '01',
     title: 'El lugar',
     text: 'Conoce la identidad y los espacios de La Petaca.',
-    art: ''
+    art: '',
+    href: '/galeria/'
   },
   {
     number: '02',
     title: 'La mesa',
     text: 'Descubre nuestra propuesta gastronómica.',
-    art: 'art-table'
+    art: 'art-table',
+    href: '/menu/'
   },
   {
     number: '03',
     title: 'Los encuentros',
     text: 'Próximamente: eventos y experiencias confirmadas.',
-    art: 'art-gathering'
+    art: 'art-gathering',
+    href: '/contacto/'
   }
 ];
 
 // TODO(cliente): reemplazar por fotografías oficiales del establecimiento.
 const galleryPlaceholders = [1, 2, 3, 4];
+
+// Vista previa de la carta oficial: primeros platos del menú del día.
+const menuPreviewRows = MENU_DAY.slice(0, 4);
 ---
 
 <BaseLayout
   title={`${BUSINESS.name} | ${BUSINESS.city}, ${BUSINESS.department}`}
   description="Conoce La Petaca Club Campestre en Páramo, Santander. Información, gastronomía, espacios y formas de contacto."
 >
+  <!-- Hero: lienzo negro-oliva, display limón y fotografía editorial -->
   <section class="hero" id="inicio" aria-labelledby="hero-title">
-    <div class="hero-texture" data-parallax="0.12" aria-hidden="true"></div>
-    <div class="hero-symbol-motion" transition:name="brand-symbol" data-parallax="0.06" aria-hidden="true">
-      <img class="hero-symbol-watermark" src="/assets/branding/symbol-light.svg" alt="" />
+    <div class="hero-watermark" aria-hidden="true">
+      <img src={`${import.meta.env.BASE_URL}/assets/branding/symbol-light.svg`} alt="" />
     </div>
-
-    <div class="container hero-content" transition:name="brand-copy">
-      <p class="eyebrow eyebrow-light">{locationLabel}</p>
-      <h1 id="hero-title">La Petaca<br /><em>Club Campestre</em></h1>
-      <p class="hero-lead">Un lugar para conocer, disfrutar y volver.</p>
-      <p class="provisional-note provisional-note-light">Texto de presentación provisional</p>
-      <div class="hero-actions">
-        <a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-          Contáctanos <span aria-hidden="true">↗</span>
-        </a>
+    <div class="container hero-grid">
+      <div class="hero-content" data-reveal>
+        <p class="eyebrow eyebrow-light">{locationLabel}</p>
+        <h1 id="hero-title">La Petaca<span class="accent">Club Campestre</span></h1>
+        <p class="hero-lead">Un lugar para conocer, disfrutar y volver.</p>
+        <p class="provisional-note provisional-note-light">Texto de presentación provisional</p>
+        <div class="action-row">
+          <a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            Contáctanos <Icon name="arrow-right" />
+          </a>
+          <a class="text-link text-link-light" href="/menu/">Ver menú <Icon name="arrow-right" /></a>
+        </div>
       </div>
-    </div>
 
-    <div class="hero-stamp" data-parallax="-0.18" aria-hidden="true">
-      <span>Desde</span><strong>La tierra</strong><span>de Santander</span>
+      <div class="hero-photo" data-reveal style="--reveal-delay: 120ms" aria-hidden="true">
+        <span class="symbol-mark hero-photo-mark"></span>
+        <p>Fotografía oficial<br />próximamente</p>
+      </div>
     </div>
   </section>
 
-  <section class="section welcome-section" aria-labelledby="welcome-title">
+  <!-- Bienvenida: panel crema, video pendiente -->
+  <section class="section section--cream" aria-labelledby="welcome-title">
     <div class="container welcome-grid">
-      <div data-reveal style="--reveal-delay: 120ms">
+      <div data-reveal>
         <WelcomeVideo />
       </div>
-      <div class="section-heading" data-reveal>
+      <div class="section-heading" data-reveal style="--reveal-delay: 100ms">
         <p class="eyebrow">Una primera mirada</p>
-        <h2 id="welcome-title">La Petaca<br /><em>en movimiento.</em></h2>
+        <h2 id="welcome-title">La Petaca<br />en movimiento</h2>
         <p class="section-intro section-intro-left">
           El video oficial de bienvenida se incorporará aquí para presentar el lugar desde una mirada auténtica.
         </p>
@@ -72,63 +85,87 @@ const galleryPlaceholders = [1, 2, 3, 4];
     </div>
   </section>
 
-  <section class="section experience-section" id="experiencia" aria-labelledby="experience-title">
+  <!-- Experiencia: tarjetas de fotografía sin cromo -->
+  <section class="section section--cream hairline-top" id="experiencia" aria-labelledby="experience-title">
     <div class="container">
       <div class="section-heading centered-heading" data-reveal>
         <p class="eyebrow">La experiencia</p>
-        <h2 id="experience-title">Un espacio para<br /><em>vivir el momento.</em></h2>
+        <h2 id="experience-title">Un espacio para<br />vivir el momento</h2>
         <p class="section-intro">Conoce próximamente los espacios, servicios y actividades disponibles en La Petaca.</p>
       </div>
 
-      <div class="card-grid experience-grid">
+      <div class="card-grid">
         {experienceCards.map((card, index) => (
-          <div data-reveal style={`--reveal-delay: ${(index + 1) * 80}ms`}>
-            <article class="feature-card">
-              <div class:list={['card-art', card.art]} aria-hidden="true">
-                <span>Fotografía oficial<br />próximamente</span>
-              </div>
-              <div class="feature-card-content">
-                <span class="card-number">{card.number}</span>
-                <h3>{card.title}</h3>
-                <p>{card.text}</p>
-                <span class="provisional-tag">Información por confirmar</span>
-              </div>
-            </article>
-          </div>
+          <article class="feature-card" data-reveal style={`--reveal-delay: ${(index + 1) * 80}ms`}>
+            <div class:list={['card-art', card.art]} aria-hidden="true">
+              <span class="symbol-mark card-mark"></span>
+              <span class="card-label">Fotografía oficial<br />próximamente</span>
+            </div>
+            <div class="feature-card-content">
+              <span class="card-number">{card.number}</span>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+              <a class="text-link" href={card.href}>Conocer más <Icon name="arrow-right" /></a>
+              <span class="provisional-tag">Información por confirmar</span>
+            </div>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
+  <!-- Gastronomía: lienzo oscuro + panel de carta crema -->
   <section class="section food-section" id="gastronomia" aria-labelledby="food-title">
     <div class="container food-grid">
       <div class="food-copy" data-reveal>
-        <p class="eyebrow">De nuestra mesa</p>
-        <h2 id="food-title">Gastronomía<br /><em>con identidad.</em></h2>
+        <p class="eyebrow eyebrow-light">De nuestra mesa</p>
+        <h2 id="food-title">Gastronomía<br />con identidad</h2>
         <p class="lead-copy">
-          Explora la carta de La Petaca y conoce próximamente sus platos, categorías, descripciones y precios.
+          Elige entre el menú del día y el menú noche, y descubre los platos de La Petaca.
         </p>
-        <a class="button button-light" href="/menu/">Explorar menú <span aria-hidden="true">↗</span></a>
+        <div class="action-row">
+          <a class="button button-primary" href="/menu/">Ver la carta <Icon name="arrow-right" /></a>
+          <a class="text-link text-link-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+            Pedir por WhatsApp <Icon name="arrow-right" />
+          </a>
+        </div>
       </div>
 
-      <div class="menu-preview" data-reveal style="--reveal-delay: 120ms" aria-label="Vista previa provisional del menú">
-        <div class="menu-preview-top"><span>La Petaca</span><span>Menú</span></div>
-        <div class="menu-preview-center">
-          <span class="menu-icon" aria-hidden="true">✦</span>
-          <p>Carta<br /><em>próximamente</em></p>
-          <small>Fotografías y contenidos oficiales por confirmar</small>
+      <div class="menu-card" data-reveal style="--reveal-delay: 120ms">
+        <p class="menu-card-header">
+          <span class="menu-card-brand">
+            <img class="menu-card-symbol" src={`${import.meta.env.BASE_URL}/assets/branding/symbol-primary.svg`} alt="" aria-hidden="true" />
+            La Petaca
+          </span>
+          <span>Menú del día</span>
+        </p>
+        <p class="menu-card-title">La carta</p>
+        <ul class="menu-list">
+          {menuPreviewRows.map((row) => (
+            <li class="menu-row">
+              <span class="menu-name">{row.name}</span>
+              <span class="menu-dots" aria-hidden="true"></span>
+              <span class="menu-price">{formatPrice(row.price)}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="menu-card-note">Vista parcial · Elige entre el menú del día y el menú noche</p>
+
+        <div class="menu-card-qr">
+          <QrCode size={360} />
+          <p class="qr-caption">Escanea y mira la carta completa</p>
         </div>
-        <div class="menu-preview-bottom"><span>01</span><span>Comer · Compartir · Disfrutar</span></div>
       </div>
     </div>
   </section>
 
-  <section class="section gallery-section" id="galeria" aria-labelledby="gallery-title">
+  <!-- Galería: teselas de borde a borde -->
+  <section class="section section--cream" id="galeria" aria-labelledby="gallery-title">
     <div class="container">
       <div class="gallery-heading">
         <div class="section-heading" data-reveal>
           <p class="eyebrow">Una mirada al lugar</p>
-          <h2 id="gallery-title">Galería <em>La Petaca.</em></h2>
+          <h2 id="gallery-title">Galería La Petaca</h2>
         </div>
         <p class="section-intro" data-reveal style="--reveal-delay: 100ms">
           Reemplazaremos estos espacios por fotografías oficiales del establecimiento.
@@ -143,7 +180,8 @@ const galleryPlaceholders = [1, 2, 3, 4];
             style={`--reveal-delay: ${(index + 1) * 60}ms`}
           >
             <div class:list={['gallery-placeholder', `placeholder-${item}`]}>
-              <span>Imagen oficial<br />próximamente</span>
+              <span class="symbol-mark gallery-mark" aria-hidden="true"></span>
+              <span class="gallery-label">Imagen oficial<br />próximamente</span>
             </div>
           </div>
         ))}

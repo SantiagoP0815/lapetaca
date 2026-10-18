@@ -1,17 +1,22 @@
 ---
+import Icon from './Icon.astro';
 import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
 ---
 
 <footer class="site-footer">
-  <div class="container footer-top">
-    <a class="brand" href="/" aria-label="Volver al inicio">
-      <img class="brand-logo" src="/assets/branding/logo-light.svg" alt={BUSINESS.name} />
-    </a>
-    <p>{locationLabel}</p>
-    <a class="text-link text-link-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Escríbenos <span aria-hidden="true">↗</span></a>
-  </div>
-  <div class="container footer-bottom">
-    <span>© {new Date().getFullYear()} {BUSINESS.name}</span>
-    <span>Contenido provisional · Sitio en construcción</span>
+  <div class="container">
+    <div class="footer-top">
+      <a class="brand" href="/" aria-label="Volver al inicio">
+        <img class="brand-logo brand-logo-sm" src={`${import.meta.env.BASE_URL}/assets/branding/logo-light.svg`} alt={BUSINESS.name} />
+      </a>
+      <p>{locationLabel}</p>
+      <a class="text-link text-link-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+        Escríbenos <Icon name="arrow-right" />
+      </a>
+    </div>
+    <div class="footer-bottom">
+      <span>© {new Date().getFullYear()} {BUSINESS.name}</span>
+      <span>Contenido provisional · Sitio en construcción</span>
+    </div>
   </div>
 </footer>

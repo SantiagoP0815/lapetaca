@@ -19,11 +19,11 @@ const galleryPlaceholders = [1, 2, 3, 4, 1, 2];
     short
   />
 
-  <section class="section gallery-section" aria-labelledby="gallery-grid-title">
+  <section class="section section--cream" aria-labelledby="gallery-grid-title">
     <div class="container">
       <div class="section-heading centered-heading" data-reveal>
         <p class="eyebrow">Contenido visual</p>
-        <h2 id="gallery-grid-title">Un lugar por<br /><em>descubrir.</em></h2>
+        <h2 id="gallery-grid-title">Un lugar por<br />descubrir</h2>
         <p class="section-intro">No utilizaremos fotografías de stock como contenido definitivo.</p>
       </div>
 
@@ -35,7 +35,8 @@ const galleryPlaceholders = [1, 2, 3, 4, 1, 2];
             style={`--reveal-delay: ${(index + 1) * 60}ms`}
           >
             <div class:list={['gallery-placeholder', `placeholder-${item}`]}>
-              <span>Fotografía oficial<br />próximamente</span>
+              <span class="symbol-mark gallery-mark" aria-hidden="true"></span>
+              <span class="gallery-label">Fotografía oficial<br />próximamente</span>
             </div>
           </div>
         ))}

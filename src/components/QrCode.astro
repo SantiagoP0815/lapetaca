@@ -1,0 +1,60 @@
+---
+// Código QR del menú digital.
+// Se genera en el cliente con la URL absoluta del dominio donde se sirva el
+// sitio (location.origin), de modo que el código funciona en cualquier
+// despliegue — incluido el definitivo, aún sin dominio confirmado.
+// El QR se pinta en un canvas temporal y se convierte a data URL para un
+// <img>: así la imagen conserva su proporción cuadrada en cualquier
+// navegador (los <canvas> no respetan height:auto por ratio).
+import { MENU_PATH } from '../data/business';
+
+interface Props {
+  path?: string;
+  size?: number;      // px del lienzo de salida (el CSS controla el tamaño visual)
+  label?: string;     // texto alternativo
+}
+
+const { path = MENU_PATH, size = 480, label = 'Código QR para abrir el menú de La Petaca' } = Astro.props;
+---
+
+<div class="qr-frame" data-qr data-qr-path={path} data-qr-size={size}>
+  <img
+    class="qr-image"
+    data-qr-image
+    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+    alt={label}
+  />
+</div>
+
+<script>
+  import QRCode from 'qrcode';
+
+  // Pinta el QR con los colores del sistema: módulos negro-oliva sobre crema
+  // cálida, con margen de seguridad para lectura impresa.
+  const renderQr = () => {
+    document.querySelectorAll('[data-qr]').forEach((frame) => {
+      if (!(frame instanceof HTMLElement)) return;
+      const img = frame.querySelector<HTMLImageElement>('[data-qr-image]');
+      if (!img || img.dataset.rendered) return;
+
+      const path = frame.dataset.qrPath || '/';
+      const size = Number(frame.dataset.qrSize) || 480;
+      const url = `${location.origin}${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+
+      const tmp = document.createElement('canvas');
+      QRCode.toCanvas(tmp, url, {
+        width: size,
+        margin: 2,
+        errorCorrectionLevel: 'M',
+        color: { dark: '#1d0b0d', light: '#fcf9f0' }
+      }).then(() => {
+        img.src = tmp.toDataURL('image/png');
+        img.dataset.rendered = 'true';
+      });
+    });
+  };
+
+  // astro:page-load: se ejecuta en la carga inicial y tras cada navegación
+  // del ClientRouter (el guard data-rendered evita repintar el mismo código).
+  document.addEventListener('astro:page-load', renderQr);
+</script>
