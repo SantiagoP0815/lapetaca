@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { withBase } from '../lib/paths';
 
 interface Props { hasVideo?: boolean; }
 const { hasVideo = false } = Astro.props;
@@ -7,14 +8,14 @@ const { hasVideo = false } = Astro.props;
 
 <div class="video-frame" aria-label="Video de bienvenida de La Petaca">
   {hasVideo ? (
-    <video class="video-player" controls muted loop playsinline preload="metadata" poster={`${import.meta.env.BASE_URL}/assets/video/welcome-poster.svg`}>
-      <source src={`${import.meta.env.BASE_URL}/assets/video/welcome.webm`} type="video/webm" />
-      <source src={`${import.meta.env.BASE_URL}/assets/video/welcome.mp4`} type="video/mp4" />
+    <video class="video-player" controls muted loop playsinline preload="metadata" poster={withBase('/assets/video/welcome-poster.svg')}>
+      <source src={withBase('/assets/video/welcome.webm')} type="video/webm" />
+      <source src={withBase('/assets/video/welcome.mp4')} type="video/mp4" />
       Tu navegador no puede reproducir este video.
     </video>
   ) : (
     <div class="video-placeholder" role="img" aria-label="Video de bienvenida pendiente de confirmación">
-      <img class="video-symbol" src={`${import.meta.env.BASE_URL}/assets/branding/symbol-light.svg`} alt="" aria-hidden="true" />
+      <img class="video-symbol" src={withBase('/assets/branding/symbol-light.svg')} alt="" aria-hidden="true" />
       <span class="play-glyph" aria-hidden="true"><Icon name="play" size={16} /></span>
       <span class="video-label">Video de bienvenida<br /><em>próximamente</em></span>
       <small>Reemplazar por material audiovisual oficial</small>

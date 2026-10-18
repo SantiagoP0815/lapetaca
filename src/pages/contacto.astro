@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
+import { withBase } from '../lib/paths';
 import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
 ---
 
@@ -19,7 +20,7 @@ import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
 
   <section class="section contact-section contact-page-section" aria-labelledby="contact-details-title">
     <div class="contact-watermark" aria-hidden="true">
-      <img src={`${import.meta.env.BASE_URL}/assets/branding/symbol-light.svg`} alt="" />
+      <img src={withBase('/assets/branding/symbol-light.svg')} alt="" />
     </div>
     <div class="container contact-grid">
       <div class="contact-copy" data-reveal>

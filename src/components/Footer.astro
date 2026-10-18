@@ -1,13 +1,14 @@
 ---
 import Icon from './Icon.astro';
+import { withBase } from '../lib/paths';
 import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
 ---
 
 <footer class="site-footer">
   <div class="container">
     <div class="footer-top">
-      <a class="brand" href="/" aria-label="Volver al inicio">
-        <img class="brand-logo brand-logo-sm" src={`${import.meta.env.BASE_URL}/assets/branding/logo-light.svg`} alt={BUSINESS.name} />
+      <a class="brand" href={withBase('/')} aria-label="Volver al inicio">
+        <img class="brand-logo brand-logo-sm" src={withBase('/assets/branding/logo-light.svg')} alt={BUSINESS.name} />
       </a>
       <p>{locationLabel}</p>
       <a class="text-link text-link-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer">

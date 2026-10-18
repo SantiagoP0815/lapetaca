@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import WelcomeVideo from '../components/WelcomeVideo.astro';
 import Icon from '../components/Icon.astro';
 import QrCode from '../components/QrCode.astro';
+import { withBase } from '../lib/paths';
 import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
 import { MENU_DAY, formatPrice } from '../data/menu';
 
@@ -13,21 +14,21 @@ const experienceCards = [
     title: 'El lugar',
     text: 'Conoce la identidad y los espacios de La Petaca.',
     art: '',
-    href: '/galeria/'
+    href: withBase('/galeria/')
   },
   {
     number: '02',
     title: 'La mesa',
     text: 'Descubre nuestra propuesta gastronómica.',
     art: 'art-table',
-    href: '/menu/'
+    href: withBase('/menu/')
   },
   {
     number: '03',
     title: 'Los encuentros',
     text: 'Próximamente: eventos y experiencias confirmadas.',
     art: 'art-gathering',
-    href: '/contacto/'
+    href: withBase('/contacto/')
   }
 ];
 
@@ -45,7 +46,7 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
   <!-- Hero: lienzo negro-oliva, display limón y fotografía editorial -->
   <section class="hero" id="inicio" aria-labelledby="hero-title">
     <div class="hero-watermark" aria-hidden="true">
-      <img src={`${import.meta.env.BASE_URL}/assets/branding/symbol-light.svg`} alt="" />
+      <img src={withBase('/assets/branding/symbol-light.svg')} alt="" />
     </div>
     <div class="container hero-grid">
       <div class="hero-content" data-reveal>
@@ -57,7 +58,7 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
           <a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
             Contáctanos <Icon name="arrow-right" />
           </a>
-          <a class="text-link text-link-light" href="/menu/">Ver menú <Icon name="arrow-right" /></a>
+          <a class="text-link text-link-light" href={withBase('/menu/')}>Ver menú <Icon name="arrow-right" /></a>
         </div>
       </div>
 
@@ -124,7 +125,7 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
           Elige entre el menú del día y el menú noche, y descubre los platos de La Petaca.
         </p>
         <div class="action-row">
-          <a class="button button-primary" href="/menu/">Ver la carta <Icon name="arrow-right" /></a>
+          <a class="button button-primary" href={withBase('/menu/')}>Ver la carta <Icon name="arrow-right" /></a>
           <a class="text-link text-link-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
             Pedir por WhatsApp <Icon name="arrow-right" />
           </a>
@@ -134,7 +135,7 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
       <div class="menu-card" data-reveal style="--reveal-delay: 120ms">
         <p class="menu-card-header">
           <span class="menu-card-brand">
-            <img class="menu-card-symbol" src={`${import.meta.env.BASE_URL}/assets/branding/symbol-primary.svg`} alt="" aria-hidden="true" />
+            <img class="menu-card-symbol" src={withBase('/assets/branding/symbol-primary.svg')} alt="" aria-hidden="true" />
             La Petaca
           </span>
           <span>Menú del día</span>

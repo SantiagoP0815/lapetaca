@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/paths';
+
 interface Props {
   eyebrow: string;
   title: string;
@@ -13,7 +15,7 @@ const { eyebrow, title, accent, description, note, short = false } = Astro.props
 
 <section class:list={['page-hero', { 'page-hero-short': short }]} aria-labelledby="page-hero-title">
   <div class="page-hero-watermark" aria-hidden="true">
-    <img src={`${import.meta.env.BASE_URL}/assets/branding/symbol-light.svg`} alt="" />
+    <img src={withBase('/assets/branding/symbol-light.svg')} alt="" />
   </div>
   <div class="container page-hero-content">
     <p class="eyebrow eyebrow-light">{eyebrow}</p>

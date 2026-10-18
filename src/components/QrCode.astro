@@ -39,7 +39,10 @@ const { path = MENU_PATH, size = 480, label = 'Código QR para abrir el menú de
 
       const path = frame.dataset.qrPath || '/';
       const size = Number(frame.dataset.qrSize) || 480;
-      const url = `${location.origin}${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+      // BASE_URL puede no llevar barra final (p. ej. '/lapetaca' en GitHub
+      // Pages): se normaliza para que la URL del QR quede bien formada.
+      const base = import.meta.env.BASE_URL === '/' ? '/' : `${import.meta.env.BASE_URL}/`;
+      const url = `${location.origin}${base}${path.replace(/^\//, '')}`;
 
       const tmp = document.createElement('canvas');
       QRCode.toCanvas(tmp, url, {

@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
+import { withBase } from '../lib/paths';
 import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
@@ -25,7 +26,7 @@ const { title, description } = Astro.props;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <!-- TODO(cliente): agregar canonical, og:url y og:image cuando el dominio esté confirmado. -->
-    <link rel="icon" href={`${import.meta.env.BASE_URL}/assets/branding/symbol-primary.svg`} type="image/svg+xml" />
+    <link rel="icon" href={withBase('/assets/branding/symbol-primary.svg')} type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
