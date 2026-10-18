@@ -1,11 +1,14 @@
 import { defineConfig } from 'astro/config';
 
 // TODO(cliente): cuando el dominio definitivo esté confirmado:
-//   1. Agregar `site: 'https://<dominio>'` a esta configuración.
-//   2. Instalar y registrar la integración `@astrojs/sitemap`
-//      para generar sitemap.xml automáticamente en el build.
-//   3. Completar la URL del sitemap en public/robots.txt.
-//   4. Completar canonical / og:url en src/layouts/BaseLayout.astro.
+//   1. Reemplazar `site` por la URL del dominio definitivo.
+//   2. Quitar `base` (o ajustarlo) según el hosting final.
+//   3. Completar canonical / og:url en src/layouts/BaseLayout.astro.
+//
+// Despliegue de demostración en GitHub Pages:
+//   https://santiagop0815.github.io/lapetaca/
 export default defineConfig({
+  site: 'https://santiagop0815.github.io',
+  base: '/lapetaca',
   output: 'static'
 });
