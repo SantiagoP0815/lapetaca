@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+# TODO(cliente): agregar "Sitemap: https://<dominio>/sitemap-index.xml" cuando el dominio sea confirmado.

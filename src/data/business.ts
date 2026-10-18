@@ -17,7 +17,6 @@ export const BUSINESS = {
 };
 
 export const locationLabel = `${BUSINESS.city} · ${BUSINESS.department} · ${BUSINESS.country}`;
-export const locationShort = `${BUSINESS.city}, ${BUSINESS.department}`;
 export const whatsappUrl = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent('Hola, quisiera obtener información sobre La Petaca Club Campestre.')}`;
 
 // Ruta única de la carta: la usan la navegación y el código QR.
