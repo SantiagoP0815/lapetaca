@@ -59,5 +59,8 @@ const { path = MENU_PATH, size = 480, label = 'Código QR para abrir el menú de
 
   // astro:page-load: se ejecuta en la carga inicial y tras cada navegación
   // del ClientRouter (el guard data-rendered evita repintar el mismo código).
+  // Se llama también de inmediato: así el QR aparece lo antes posible aunque
+  // el evento tarde o ya haya pasado.
+  renderQr();
   document.addEventListener('astro:page-load', renderQr);
 </script>
