@@ -49,13 +49,16 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
       <img src={withBase('/assets/branding/logo-emblem-white.svg')} alt="" />
     </div>
     <div class="container hero-grid">
-      <div class="hero-content" data-reveal>
-        <p class="eyebrow eyebrow-light">{locationLabel}</p>
+      <div class="hero-content">
+        <p class="eyebrow eyebrow-light" data-hero-reveal style="--hero-delay: 0ms">{locationLabel}</p>
         <h1 class="sr-only" id="hero-title">{BUSINESS.name}</h1>
-        <img class="hero-logo" src={withBase('/assets/branding/logo-horizontal-white.svg')} alt="La Petaca" />
-        <p class="hero-accent">Club Campestre</p>
-        <p class="hero-lead">Restaurante campestre con menú de día y de noche.</p>
-        <div class="action-row">
+        <img class="hero-logo" src={withBase('/assets/branding/logo-horizontal-white.svg')} alt="La Petaca" data-hero-reveal style="--hero-delay: 100ms" />
+        <p class="hero-accent" data-hero-reveal style="--hero-delay: 200ms">Club Campestre</p>
+        <p class="hero-lead" data-hero-reveal style="--hero-delay: 300ms">
+          Restaurante campestre
+          <span class="hero-lead-accent">con menú de día y de noche.</span>
+        </p>
+        <div class="action-row" data-hero-reveal style="--hero-delay: 400ms">
           <a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
             Contáctanos <Icon name="arrow-right" />
           </a>
@@ -63,10 +66,25 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
         </div>
       </div>
 
-      <div class="hero-photo" data-reveal style="--reveal-delay: 120ms" aria-hidden="true">
+      <div class="hero-photo" data-hero-reveal style="--hero-delay: 350ms" aria-hidden="true">
         <span class="symbol-mark hero-photo-mark"></span>
         <p>Fotografía oficial<br />próximamente</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Cinta de datos: identidad, propuesta y contacto en movimiento -->
+  <section class="ticker" aria-label="Datos de La Petaca">
+    <div class="ticker-track">
+      {[0, 1].map((group) => (
+        <div class="ticker-group" aria-hidden={group === 1 || undefined}>
+          <p class="ticker-item">{locationLabel}<span class="symbol-mark" aria-hidden="true"></span></p>
+          <p class="ticker-item">{BUSINESS.type}<span class="symbol-mark" aria-hidden="true"></span></p>
+          <p class="ticker-item">Menú de día<span class="symbol-mark" aria-hidden="true"></span></p>
+          <p class="ticker-item">Menú noche<span class="symbol-mark" aria-hidden="true"></span></p>
+          <p class="ticker-item">{BUSINESS.phoneDisplay}</p>
+        </div>
+      ))}
     </div>
   </section>
 
