@@ -1,19 +1,33 @@
 ---
-import Icon from './Icon.astro';
 import { withBase } from '../lib/paths';
 import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
 ---
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-top">
-      <a class="brand" href={withBase('/')} aria-label="Volver al inicio">
-        <img class="brand-logo brand-logo-sm" src={withBase('/assets/branding/logo-horizontal-white.svg')} alt={BUSINESS.name} />
-      </a>
-      <p>{locationLabel}</p>
-      <a class="text-link text-link-light" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-        Escríbenos <Icon name="arrow-right" />
-      </a>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href={withBase('/')} aria-label={`${BUSINESS.name} — volver al inicio`}>
+          <img src={withBase('/assets/branding/logo-horizontal-white.svg')} alt={BUSINESS.name} width="280" height="64" />
+        </a>
+        <p>{locationLabel}</p>
+        <p class="footer-muted">{BUSINESS.type} · Gastronomía y naturaleza</p>
+      </div>
+
+      <div class="footer-col">
+        <h2 class="footer-heading">Navegación</h2>
+        <a href={withBase('/')}>Inicio</a>
+        <a href={withBase('/menu/')}>Menú</a>
+        <a href={withBase('/galeria/')}>Galería</a>
+        <a href={withBase('/contacto/')}>Contacto</a>
+      </div>
+
+      <div class="footer-col">
+        <h2 class="footer-heading">Contacto</h2>
+        <a href={`tel:+57${BUSINESS.phone}`}>{BUSINESS.phoneDisplay}</a>
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <p class="footer-muted">Instagram · Facebook — enlaces por confirmar</p>
+      </div>
     </div>
     <div class="footer-bottom">
       <span>© {new Date().getFullYear()} {BUSINESS.name}</span>
