@@ -639,13 +639,14 @@ em { font-style: normal; }
   aspect-ratio: 1 / 1;
   height: auto;
 }
-/* Fallback mientras el QR se genera (o si el JS falla): caja con el símbolo,
-   mismo tamaño que el QR para que no haya salto de layout al reemplazarlo. */
+/* Fallback mientras el QR se genera (o si el JS falla): teja negro-oliva
+   con el símbolo en crema, mismo tamaño que el QR para que no haya salto
+   de layout al reemplazarlo. */
 .qr-fallback {
   display: grid; place-items: center; gap: 0.9rem; align-content: center;
   width: 100%; max-width: 220px; aspect-ratio: 1 / 1;
-  border: 1px solid var(--hairline-light);
-  color: rgba(16, 59, 21, 0.6);
+  background: var(--color-black-olive);
+  color: rgba(252, 249, 240, 0.85);
   font-size: var(--text-caption); letter-spacing: 0.08em; line-height: 1.45;
   text-transform: uppercase; text-align: center;
 }
