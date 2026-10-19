@@ -485,7 +485,8 @@ em { font-style: normal; }
 .footer-top > p { margin: 0; color: rgba(252, 249, 240, 0.6); font-size: var(--text-body-sm); }
 .footer-bottom {
   display: flex; justify-content: space-between; gap: 1rem; padding-top: 1.25rem;
-  color: rgba(252, 249, 240, 0.45); font-size: var(--text-caption);
+  /* 0.62 sobre negro-oliva ≈ 7.3:1 (WCAG AA exige ≥4.5:1 para texto pequeño) */
+  color: rgba(252, 249, 240, 0.62); font-size: var(--text-caption);
 }
 
 /* ---------- 13. Carta oficial (selector día/noche + lista + QR) ---------- */
@@ -520,13 +521,8 @@ em { font-style: normal; }
   display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(16rem, 0.6fr);
   gap: clamp(2.5rem, 6vw, 5rem); align-items: start;
 }
-/* Estado vacío: se muestra solo hasta que el usuario elige un menú */
-.menu-hint {
-  margin: 0 0 1.5rem;
-  color: rgba(16, 59, 21, 0.72);
-  font-size: var(--text-body-lg); line-height: 1.25;
-  letter-spacing: var(--tracking-body-lg);
-}
+/* Estado inicial: el panel del día se sirve visible desde el servidor,
+   de modo que la carta se ve sin JavaScript y antes de cualquier clic. */
 /* La carta aparece con una entrada suave al seleccionar */
 .menu-dishes [role='tabpanel']:not([hidden]) { animation: menu-panel-in 450ms ease both; }
 @keyframes menu-panel-in {
@@ -643,6 +639,18 @@ em { font-style: normal; }
   aspect-ratio: 1 / 1;
   height: auto;
 }
+/* Fallback mientras el QR se genera (o si el JS falla): caja con el símbolo,
+   mismo tamaño que el QR para que no haya salto de layout al reemplazarlo. */
+.qr-fallback {
+  display: grid; place-items: center; gap: 0.9rem; align-content: center;
+  width: 100%; max-width: 220px; aspect-ratio: 1 / 1;
+  border: 1px solid var(--hairline-light);
+  color: rgba(16, 59, 21, 0.6);
+  font-size: var(--text-caption); letter-spacing: 0.08em; line-height: 1.45;
+  text-transform: uppercase; text-align: center;
+}
+.qr-fallback .symbol-mark { width: 2.25rem; }
+.qr-image[data-rendered] ~ .qr-fallback { display: none; }
 .qr-caption {
   margin: 0;
   color: rgba(16, 59, 21, 0.75);
@@ -656,6 +664,7 @@ em { font-style: normal; }
   padding-top: 1.5rem; border-top: 1px solid var(--hairline-light);
 }
 .menu-card-qr .qr-image[data-rendered] { max-width: 150px; }
+.menu-card-qr .qr-fallback { max-width: 150px; }
 
 /* ---------- 14. Volver arriba (botón circular) ---------- */
 .back-to-top {

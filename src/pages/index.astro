@@ -54,8 +54,7 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
         <h1 class="sr-only" id="hero-title">{BUSINESS.name}</h1>
         <img class="hero-logo" src={withBase('/assets/branding/logo-horizontal-white.svg')} alt="La Petaca" />
         <p class="hero-accent">Club Campestre</p>
-        <p class="hero-lead">Un lugar para conocer, disfrutar y volver.</p>
-        <p class="provisional-note provisional-note-light">Texto de presentación provisional</p>
+        <p class="hero-lead">Restaurante campestre con menú de día y de noche.</p>
         <div class="action-row">
           <a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
             Contáctanos <Icon name="arrow-right" />
@@ -189,6 +188,33 @@ const menuPreviewRows = MENU_DAY.slice(0, 4);
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto: cierre del recorrido -->
+  <section class="section contact-section" aria-labelledby="contact-strip-title">
+    <div class="container contact-grid">
+      <div class="contact-copy" data-reveal>
+        <p class="eyebrow eyebrow-light">Contáctanos</p>
+        <h2 id="contact-strip-title">Planifica tu visita</h2>
+        <p>Confirma tu visita por teléfono o por WhatsApp.</p>
+      </div>
+
+      <div class="contact-details" data-reveal style="--reveal-delay: 100ms">
+        <div class="contact-detail">
+          <span class="detail-label"><Icon name="pin" size={14} /> Ubicación</span>
+          <strong>{locationLabel}</strong>
+          <span class="detail-muted">Dirección exacta por confirmar</span>
+        </div>
+        <div class="contact-detail">
+          <span class="detail-label"><Icon name="phone" size={14} /> Teléfono</span>
+          <strong><a href={`tel:+${BUSINESS.countryCode}${BUSINESS.phone}`}>{BUSINESS.phoneDisplay}</a></strong>
+          <span class="detail-muted">También disponible por WhatsApp</span>
+        </div>
+        <a class="button button-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          Escribir por WhatsApp <Icon name="arrow-right" />
+        </a>
       </div>
     </div>
   </section>

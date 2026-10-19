@@ -17,7 +17,8 @@ const panels: { id: string; title: string; dishes: MenuDish[]; note: string | nu
 ];
 ---
 
-<!-- Selector: la carta permanece oculta hasta que el usuario elige.
+<!-- Selector día/noche. El panel del día llega visible desde el servidor
+     (progressive enhancement: sin JavaScript la carta del día se ve igual).
      Al elegir, junto al título del menú aparece el astro correspondiente:
      un sol (día) o una luna (noche) con una animación de entrada propia. -->
 <section class="menu-chooser" aria-label="Elige tu menú">
@@ -30,7 +31,7 @@ const panels: { id: string; title: string; dishes: MenuDish[]; note: string | nu
           type="button"
           role="tab"
           id={`tab-${tab.id}`}
-          aria-selected="false"
+          aria-selected={index === 0 ? 'true' : 'false'}
           aria-controls={`panel-${tab.id}`}
           tabindex={index === 0 ? 0 : -1}
           data-menu-tab={tab.id}
@@ -46,13 +47,14 @@ const panels: { id: string; title: string; dishes: MenuDish[]; note: string | nu
 <section class="section section--cream menu-section" aria-label="Carta de La Petaca">
   <div class="container menu-page-grid">
     <div class="menu-dishes">
-      <p class="menu-hint" data-menu-hint>
-        Selecciona el menú del día o el de la noche para ver la carta.
-      </p>
-
       {panels.map((panel) => (
-        <div role="tabpanel" id={`panel-${panel.id}`} aria-labelledby={`tab-${panel.id}`} data-menu-panel={panel.id} hidden>
-          <div class="menu-panel-head">
+        <div
+          role="tabpanel"
+          id={`panel-${panel.id}`}
+          aria-labelledby={`tab-${panel.id}`}
+          data-menu-panel={panel.id}
+          hidden={panel.id !== 'dia' || undefined}
+        >          <div class="menu-panel-head">
             <h2>{panel.title}</h2>
             <span class:list={['menu-orb', { 'menu-orb--moon': panel.id === 'noche' }]} aria-hidden="true">
               <Icon name={panel.id === 'dia' ? 'sun' : 'moon'} size={panel.id === 'dia' ? 38 : 34} />
@@ -142,7 +144,6 @@ const panels: { id: string; title: string; dishes: MenuDish[]; note: string | nu
   const selectMenu = (id, moveFocus = false) => {
     const tabs = Array.from(document.querySelectorAll('[data-menu-tab]'));
     const panels = Array.from(document.querySelectorAll('[data-menu-panel]'));
-    const hint = document.querySelector('[data-menu-hint]');
 
     tabs.forEach((tab) => {
       const selected = tab.dataset.menuTab === id;
@@ -153,7 +154,6 @@ const panels: { id: string; title: string; dishes: MenuDish[]; note: string | nu
     panels.forEach((panel) => {
       panel.hidden = panel.dataset.menuPanel !== id;
     });
-    if (hint) hint.hidden = true;
     closeAllDishDetails();
 
     // Mantiene la elección en la URL (?menu=noche) para poder compartirla.
