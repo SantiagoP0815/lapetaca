@@ -33,9 +33,9 @@ const { path = MENU_PATH, size = 480, label = 'Código QR para abrir el menú de
 <script>
   import QRCode from 'qrcode';
 
-  // Pinta el QR invertido sobre el lienzo negro-oliva del sistema: la teja
-  // queda #1d0b0d y los módulos en crema cálida, con margen de seguridad
-  // para lectura impresa.
+  // Pinta el QR con los colores del sistema: módulos negro-oliva sobre crema
+  // cálida, sin teja de fondo (se funde con el panel), con margen de
+  // seguridad para lectura impresa.
   const renderQr = () => {
     document.querySelectorAll('[data-qr]').forEach((frame) => {
       if (!(frame instanceof HTMLElement)) return;
@@ -54,7 +54,7 @@ const { path = MENU_PATH, size = 480, label = 'Código QR para abrir el menú de
         width: size,
         margin: 2,
         errorCorrectionLevel: 'M',
-        color: { dark: '#fcf9f0', light: '#1d0b0d' }
+        color: { dark: '#1d0b0d', light: '#fcf9f0' }
       }).then(() => {
         img.src = tmp.toDataURL('image/png');
         img.dataset.rendered = 'true';
