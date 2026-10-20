@@ -1,6 +1,6 @@
 ---
 import { withBase } from '../lib/paths';
-import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
+import { BUSINESS, locationLabel, whatsappUrl, instagramUrl } from '../data/business';
 ---
 
 <footer class="site-footer">
@@ -26,7 +26,8 @@ import { BUSINESS, locationLabel, whatsappUrl } from '../data/business';
         <h2 class="footer-heading">Contacto</h2>
         <a href={`tel:+57${BUSINESS.phone}`}>{BUSINESS.phoneDisplay}</a>
         <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>
-        <p class="footer-muted">Instagram · Facebook — enlaces por confirmar</p>
+        <a href={instagramUrl} target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href={BUSINESS.googleMapsUrl} target="_blank" rel="noopener noreferrer">Google Maps</a>
       </div>
     </div>
     <div class="footer-bottom">
