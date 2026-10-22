@@ -11,9 +11,23 @@ const tabs = [
   { id: 'noche', label: 'Menú noche', icon: 'moon' as const }
 ];
 
-const panels: { id: string; title: string; dishes: MenuDish[]; note: string | null }[] = [
-  { id: 'dia', title: 'Menú del día', dishes: MENU_DAY, note: MENU_DAY_NOTE },
-  { id: 'noche', title: 'Menú noche', dishes: MENU_NIGHT, note: null }
+// Agrupa los platos por categoría conservando el orden de aparición.
+const groupDishes = (dishes: MenuDish[]) => {
+  const groups: { category: string; dishes: MenuDish[] }[] = [];
+  for (const dish of dishes) {
+    let group = groups.find((g) => g.category === dish.category);
+    if (!group) {
+      group = { category: dish.category, dishes: [] };
+      groups.push(group);
+    }
+    group.dishes.push(dish);
+  }
+  return groups;
+};
+
+const panels: { id: string; title: string; groups: { category: string; dishes: MenuDish[] }[]; note: string | null }[] = [
+  { id: 'dia', title: 'Menú del día', groups: groupDishes(MENU_DAY), note: MENU_DAY_NOTE },
+  { id: 'noche', title: 'Menú noche', groups: groupDishes(MENU_NIGHT), note: null }
 ];
 ---
 
@@ -61,48 +75,53 @@ const panels: { id: string; title: string; dishes: MenuDish[]; note: string | nu
             </span>
           </div>
 
-          <ul class="menu-dish-list">
-            {panel.dishes.map((dish, index) => {
-              const detailId = `dish-${panel.id}-${index}`;
-              return (
-                <li class="menu-entry">
-                  <button
-                    class="menu-row menu-dish-toggle"
-                    type="button"
-                    aria-expanded="false"
-                    aria-controls={detailId}
-                    data-dish-toggle
-                  >
-                    <span class="menu-name">{dish.name}</span>
-                    <span class="menu-dots" aria-hidden="true"></span>
-                    <span class="menu-price">{formatPrice(dish.price)}</span>
-                    <Icon name="chevron-down" size={14} class="dish-caret" />
-                  </button>
+          {panel.groups.map((group, groupIndex) => (
+            <section class="menu-category">
+              <h3 class="menu-category-title">{group.category}</h3>
+              <ul class="menu-dish-list">
+                {group.dishes.map((dish, index) => {
+                  const detailId = `dish-${panel.id}-${groupIndex}-${index}`;
+                  return (
+                    <li class="menu-entry">
+                      <button
+                        class="menu-row menu-dish-toggle"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls={detailId}
+                        data-dish-toggle
+                      >
+                        <span class="menu-name">{dish.name}</span>
+                        <span class="menu-dots" aria-hidden="true"></span>
+                        <span class="menu-price">{formatPrice(dish.price)}</span>
+                        <Icon name="chevron-down" size={14} class="dish-caret" />
+                      </button>
 
-                  <div class="dish-expand" id={detailId} hidden>
-                    <div class="dish-expand-copy">
-                      <p class="dish-expand-desc">
-                        {dish.description ?? 'La descripción de este plato se publicará cuando sea confirmada por el cliente.'}
-                      </p>
-                      {(!dish.description || !dish.image) && (
-                        <p class="provisional-note">Contenido por confirmar con el cliente</p>
-                      )}
-                    </div>
-                    <div class="dish-expand-art">
-                      {dish.image ? (
-                        <img class="dish-expand-img" src={dish.image} alt={dish.imageAlt ?? dish.name} loading="lazy" />
-                      ) : (
-                        <>
-                          <span class="symbol-mark dish-expand-mark"></span>
-                          <span class="dish-expand-art-label">Fotografía oficial<br />próximamente</span>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+                      <div class="dish-expand" id={detailId} hidden>
+                        <div class="dish-expand-copy">
+                          <p class="dish-expand-desc">
+                            {dish.description ?? 'La descripción de este plato se publicará cuando sea confirmada por el cliente.'}
+                          </p>
+                          {(!dish.description || !dish.image) && (
+                            <p class="provisional-note">Contenido por confirmar con el cliente</p>
+                          )}
+                        </div>
+                        <div class="dish-expand-art">
+                          {dish.image ? (
+                            <img class="dish-expand-img" src={dish.image} alt={dish.imageAlt ?? dish.name} loading="lazy" />
+                          ) : (
+                            <>
+                              <span class="symbol-mark dish-expand-mark"></span>
+                              <span class="dish-expand-art-label">Fotografía oficial<br />próximamente</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          ))}
 
           {panel.note && <p class="menu-list-note">* {panel.note}</p>}
         </div>

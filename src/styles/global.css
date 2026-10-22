@@ -658,6 +658,16 @@ em { font-style: normal; }
   60% { opacity: 1; transform: rotate(-14deg) scale(1.1); }
   100% { opacity: 1; transform: rotate(0) scale(1); }
 }
+/* Agrupación por categorías: título con filete y lista propia en dos columnas */
+.menu-category + .menu-category { margin-top: 2.75rem; }
+.menu-category-title {
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--hairline-light);
+  color: var(--color-forest-ink);
+  font-size: var(--text-body-sm); font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
 .menu-dish-list {
   columns: 2; column-gap: 3.5rem;
   margin: 0; padding: 0; list-style: none;
