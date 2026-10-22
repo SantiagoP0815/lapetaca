@@ -20,42 +20,42 @@ export const MENU_DAY: MenuDish[] = [
     price: 39000,
     category: 'Comida del mar',
     description:
-      'Camarones, mejillones, almejas y pulpo salteados al ajillo, marinados en salsa cremosa de la casa y gratinados con queso parmesano. Acompañado con arroz blanco, patacón pisao y ensalada de la casa.'
+      'Camarones, mejillones, almejas y pulpo salteados al ajillo, marinados en salsa cremosa de la casa y gratinados con queso parmesano. Acompañado con arroz blanco, patacón y ensalada de la casa.'
   },
   {
     name: 'Cazuela de Bagre',
     price: 38000,
     category: 'Comida del mar',
     description:
-      'Bagre en cremosa salsa de la casa, gratinado con queso parmesano. Acompañado con arroz blanco, patacón pisao y ensalada de la casa.'
+      'Bagre en cremosa salsa de la casa, gratinado con queso parmesano. Acompañado con arroz blanco, patacón y ensalada de la casa.'
   },
   {
     name: 'Paella Marinera',
     price: 36000,
     category: 'Comida del mar',
     description:
-      'Arroz salteado al wok con camarones, mejillones, almejas, pulpo, anillos de calamar, palmitos y vegetales. Acompañado con patacones pisaos y ensalada de la casa.'
+      'Arroz salteado al wok con camarones, mejillones, almejas, pulpo, anillos de calamar, palmitos y vegetales. Acompañado con patacones y ensalada de la casa.'
   },
   {
     name: 'Trucha en salsa 3 quesos con camarones',
     price: 42000,
     category: 'Comida del mar',
     description:
-      'Trucha mariposa en salsa de tres quesos —queso de hoja de la región, mozzarella y parmesano— coronada con camarones. Acompañado con yuca al vapor, patacones pisaos y ensalada de la casa.'
+      'Trucha mariposa en salsa de tres quesos —queso de hoja de la región, mozzarella y parmesano— coronada con camarones. Acompañado con yuca al vapor, patacones y ensalada de la casa.'
   },
   {
     name: 'Trucha al ajillo',
     price: 32000,
     category: 'Comida del mar',
     description:
-      'Trucha mariposa asada, bañada en salsa cremosa de ajo y cilantro. Acompañado con yuca al vapor, patacones pisaos y ensalada de la casa.'
+      'Trucha mariposa asada, bañada en salsa cremosa de ajo y cilantro. Acompañado con yuca al vapor, patacones y ensalada de la casa.'
   },
   {
     name: 'Trucha en salsa de maracuyá',
     price: 34000,
     category: 'Comida del mar',
     description:
-      'Trucha mariposa asada con salsa ligera de maracuyá. Acompañado con yuca al vapor, patacones pisaos y ensalada de la casa.'
+      'Trucha mariposa asada con salsa ligera de maracuyá. Acompañado con yuca al vapor, patacones y ensalada de la casa.'
   },
   {
     name: 'Patacón Marinero',
@@ -69,7 +69,7 @@ export const MENU_DAY: MenuDish[] = [
     price: 32000,
     category: 'Comida del mar',
     description:
-      'Mojarra frita entera, dorada y crocante. Acompañado con patacón pisao, yuca al vapor y ensalada de la casa.'
+      'Mojarra frita entera, dorada y crocante. Acompañado con patacón, yuca al vapor y ensalada de la casa.'
   },
 
   // --- Carnes ---
