@@ -138,11 +138,12 @@ export const MENU_NIGHT: MenuDish[] = [
     name: 'Salchipapa premium',
     price: 26000,
     description:
-      'Papas a la francesa con salchicha americana, carne y pollo desmechados, trozos de maduro frito y queso fundido con maíz tierno.'
+      'Papas a la francesa con salchicha americana, carne y pollo desmechados, trozos de maduro frito y queso fundido con maíz tierno. Con salsas de la casa.'
   },
   {
     name: 'Salchipapa Sencillo',
-    price: 15000
+    price: 15000,
+    description: 'Papas a la francesa, salchicha americana, queso rallado y salsas de la casa.'
   },
   {
     name: 'Brochetas Mixtas',
@@ -152,7 +153,8 @@ export const MENU_NIGHT: MenuDish[] = [
   },
   {
     name: 'Empanaditas Cocteleras x6',
-    price: 12000
+    price: 12000,
+    description: 'Empanaditas de carne con masa crocante valluna, acompañadas de trozos de limón.'
   },
   {
     name: 'Pechuga Gratinada',
