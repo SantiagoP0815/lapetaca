@@ -99,7 +99,7 @@ const { title, description } = Astro.props;
       });
 
       // Animaciones de aparición: se reinician en cada página sin acumular observers.
-      let revealObserver;
+      let revealObserver: IntersectionObserver | undefined;
       const setupReveal = () => {
         revealObserver?.disconnect();
         const items = document.querySelectorAll('[data-reveal]');
