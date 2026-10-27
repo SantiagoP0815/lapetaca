@@ -20,14 +20,14 @@ export const MENU_DAY: MenuDish[] = [
     price: 39000,
     category: 'Comida del mar',
     description:
-      'Camarones, mejillones, almejas, pulpo, anillos de calamar y palmitos salteados al ajillo, marinados en salsa cremosa de la casa y gratinados con queso parmesano. Acompañado con arroz blanco, patacón y ensalada de la casa.'
+      'Camarones, mejillones, almejas, pulpo, anillos de calamar y palmitos salteados al ajillo, marinados en salsa cremosa de la casa y coronados con queso parmesano. Acompañado con arroz blanco, patacón y ensalada de la casa.'
   },
   {
     name: 'Cazuela de Bagre',
     price: 38000,
     category: 'Comida del mar',
     description:
-      'Bagre en cremosa salsa de la casa, gratinado con queso parmesano. Acompañado con arroz blanco, patacón y ensalada de la casa.'
+      'Bagre en cremosa salsa de la casa, coronado con queso parmesano. Acompañado con arroz blanco, patacón y ensalada de la casa.'
   },
   {
     name: 'Paella Marinera',
@@ -62,7 +62,7 @@ export const MENU_DAY: MenuDish[] = [
     price: 36000,
     category: 'Comida del mar',
     description:
-      'Patacón pisao cubierto con salsa cremosa de camarones, mejillones, almejas, pulpo, anillos de calamar y palmitos, gratinado con queso parmesano. Acompañado con ensalada de la casa.'
+      'Patacón pisao cubierto con salsa cremosa de camarones, mejillones, almejas, pulpo, anillos de calamar y palmitos, coronado con queso parmesano. Acompañado con ensalada de la casa.'
   },
   {
     name: 'Mojarra Frita',
@@ -243,7 +243,7 @@ export const MENU_NIGHT: MenuDish[] = [
     price: 36000,
     category: 'Comida del mar',
     description:
-      'Patacón pisao cubierto con salsa cremosa de camarones, mejillones, almejas, pulpo, anillos de calamar y palmitos, gratinado con queso parmesano. Acompañado con ensalada de la casa.'
+      'Patacón pisao cubierto con salsa cremosa de camarones, mejillones, almejas, pulpo, anillos de calamar y palmitos, coronado con queso parmesano. Acompañado con ensalada de la casa.'
   }
 ];
 
